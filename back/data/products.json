@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "котик белый",
+        "price": 100,
+        "description": "пушистое чудо",
+        "category": "cat"
+    },
+    {
+        "id": 2,
+        "name": "котик чёрный",
+        "price": 200,
+        "description": "пушистое чудо",
+        "category": "cat"
+    },
+    {
+        "id": 3,
+        "name": "котик вислоухий",
+        "price": 150,
+        "description": "пушистое чудо",
+        "category": "cat2"
+    },
+    {
+        "id": 4,
+        "name": "котик оранжевый",
+        "price": 300,
+        "description": "пушистое чудо",
+        "category": "cat2"
+    },
+    {
+        "id": 5,
+        "name": "котик белый",
+        "price": 250,
+        "description": "пушистое чудо",
+        "category": "cat, cat2"
+    }
+]
