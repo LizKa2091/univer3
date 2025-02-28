@@ -1,3 +1,14 @@
+### Сервер администратора
+Для запуска сервера администратора выполните следующие команды:
+bash
+cd back
+node adminServer.js
+### Сервер пользователя 
+Для запуска сервера пользователя выполните следующие команды:
+bash
+cd back
+node userServer.js
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

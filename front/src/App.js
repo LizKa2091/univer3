@@ -3,7 +3,8 @@ import AdminProductCard from './components/AdminProductCard';
 import UserProductCard from './components/UserProductCard';
 
 const App = () => {
-    const isAdmin = false;
+    const isAdmin = true;
+    
     return (
         <div className="App">
             <h1>Каталог товаров</h1>
