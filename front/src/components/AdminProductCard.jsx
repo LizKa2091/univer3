@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const ProductCard = () => {
+const AdminProductCard = () => {
     const [products, setProducts] = useState([]);
     const [currAddItemInput, setCurrAddItemInput] = useState('');
     const [editItemId, setEditItemId] = useState(null);
@@ -11,7 +11,7 @@ const ProductCard = () => {
     }, []);
 
     const fetchProducts = async () => {
-        const response = await fetch('http://localhost:8000/api/products');
+        const response = await fetch('http://localhost:8001/api/products');
         const data = await response.json();
         setProducts(data);
     };
@@ -19,15 +19,13 @@ const ProductCard = () => {
     const handleAddItem = async (e) => {
         e.preventDefault();
         const newProduct = { name: currAddItemInput, price: 100, description: 'добавленный котик', category: 'cat2' };
-
-        const response = await fetch('http://localhost:8000/api/products', {
+        const response = await fetch('http://localhost:8001/api/products', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify([newProduct]),
         });
-
         if (response.ok) {
             setCurrAddItemInput('');
             fetchProducts();
@@ -35,7 +33,7 @@ const ProductCard = () => {
     };
 
     const handleRemoveItem = async (id) => {
-        await fetch(`http://localhost:8000/api/products/${id}`, {
+        await fetch(`http://localhost:8001/api/products/${id}`, {
             method: 'DELETE',
         });
         fetchProducts();
@@ -43,7 +41,7 @@ const ProductCard = () => {
 
     const handleEditItem = async (id) => {
         const updatedProduct = { ...products.find(product => product.id === id), name: editItemInput };
-        await fetch(`http://localhost:8000/api/products/${id}`, {
+        await fetch(`http://localhost:8001/api/products/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -62,7 +60,7 @@ const ProductCard = () => {
     const handleEditInputChange = (e) => {
         setEditItemInput(e.target.value);
     };
-
+    
     return (
         <>
             {products.map(product => (
@@ -90,4 +88,4 @@ const ProductCard = () => {
         </>
     );
 };
-export default ProductCard;
+export default AdminProductCard;

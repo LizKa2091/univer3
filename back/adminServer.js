@@ -3,18 +3,12 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 const app = express();
-const PORT = 8000;
+const PORT = 8001;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const productsFilePath = path.join(__dirname, 'data', 'products.json');
 
-// Обработчик для корневого маршрута
-app.get('/', (req, res) => {
-    res.send('Добро пожаловать на API магазина! Используйте /api/products для доступа к товарам.');
-});
-
-// Получение списка товаров
 app.get('/api/products', (req, res) => {
     fs.readFile(productsFilePath, 'utf8', (err, data) => {
         if (err) {
@@ -24,7 +18,6 @@ app.get('/api/products', (req, res) => {
     });
 });
 
-// Добавление товаров
 app.post('/api/products', (req, res) => {
     const newProducts = req.body;
     fs.readFile(productsFilePath, 'utf8', (err, data) => {
@@ -42,7 +35,6 @@ app.post('/api/products', (req, res) => {
     });
 });
 
-// Редактирование товара
 app.put('/api/products/:id', (req, res) => {
     const productId = parseInt(req.params.id);
     const updatedProduct = req.body;
@@ -61,7 +53,6 @@ app.put('/api/products/:id', (req, res) => {
     });
 });
 
-// Удаление товара
 app.delete('/api/products/:id', (req, res) => {
     const productId = parseInt(req.params.id);
     fs.readFile(productsFilePath, 'utf8', (err, data) => {
@@ -80,5 +71,5 @@ app.delete('/api/products/:id', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Сервер запущен на http://localhost:${PORT}`);
+    console.log(`Сервер администратора запущен на http://localhost:${PORT}`);
 });

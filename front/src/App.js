@@ -1,14 +1,17 @@
 import React from 'react';
-import ProductCard from './components/ProductCard';
+import AdminProductCard from './components/AdminProductCard';
+import UserProductCard from './components/UserProductCard';
 
 const App = () => {
+    const isAdmin = false;
     return (
         <div className="App">
             <h1>Каталог товаров</h1>
             <div className="product-list">
-                <ProductCard />
+                {isAdmin ? <AdminProductCard /> : <UserProductCard />}
             </div>
         </div>
     );
 };
+
 export default App;
