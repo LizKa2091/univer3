@@ -99,8 +99,7 @@ const AdminProductCard = () => {
     
     return (
         <>
-            <div>
-                {products.map(product => (
+            {products.map(product => (
                     <div key={product.id} className='product-card'>
                         <h2>{product.name}</h2>
                         <p>Цена: {product.price} руб.</p>
@@ -116,13 +115,12 @@ const AdminProductCard = () => {
                             <button className="edit-item" onClick={() => { setEditItemId(product.id); setEditItemInput(product.name); }}>изменить товар</button>
                         )}
                     </div>
-                ))}
-                <form onSubmit={handleAddItem} style={{marginTop: 20}}>
-                    <label htmlFor="new-product">Добавить товар:</label>
-                    <input type="text" onChange={handleInputChange} value={currAddItemInput} />
-                    <button className="add-item" type="submit">добавить товар</button>
-                </form>
-            </div>
+            ))}
+            <form onSubmit={handleAddItem} className='add-item__form'>
+                <label htmlFor="new-product" className='add-item__label'>Добавить товар:</label>
+                <input type="text" onChange={handleInputChange} value={currAddItemInput} className='add-item__input'/>
+                <button className="add-item add-item__button" type="submit">добавить товар</button>
+            </form>
         </>
     );
 };

@@ -9,7 +9,7 @@ const UserProductCard = () => {
     useEffect(() => {
         fetchProducts();
         const websocket = new WebSocket('ws://localhost:8004');
-        
+
         websocket.onopen = () => {
             console.log('Подключено к WebSocket серверу');
         };
@@ -49,16 +49,14 @@ const UserProductCard = () => {
     
     return (
         <>
-            <div>
-                {products.map(product => (
-                    <div key={product.id} className='product-card'>
-                        <h2>{product.name}</h2>
-                        <p>Цена: {product.price} руб</p>
-                        {product.description && <p>{product.description}</p>}
-                        {product.category && <p>Категория: {product.category}</p>}
-                    </div>
-                ))}
-            </div>
+            {products.map(product => (
+                <div key={product.id} className='product-card'>
+                    <h2>{product.name}</h2>
+                    <p>Цена: {product.price} руб</p>
+                    {product.description && <p>{product.description}</p>}
+                    {product.category && <p>Категория: {product.category}</p>}
+                </div>
+            ))}
         </>
     );
 };

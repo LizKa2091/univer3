@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: aliceblue;
+}
+#root {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+}
+.product-list {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    text-align: center;
+    gap: 25px;
+}
+.chat {
+    border: 1px solid cadetblue;
+    border-radius: 15px;
+    padding: 25px;
+    width: 100%;
+    max-width: 400px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+
+    &__controllers {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 40px;
+        gap: 5px;
+        width: 100%;
+    }
+    &__input {
+        border: 1px solid cadetblue;
+        border-radius: 16px;
+        font-size: 1.25rem;
+        width: 75%;
+        height: 100%;
+        padding: 0 10px;
+    }
+}
+.chat__button, .remove-item, .edit-item, .add-item__button {
+    border: 1px solid cadetblue;
+    border-radius: 16px;
+    background-color: inherit;
+    width: 35%;
+    height: 40px;
+    padding: 0 13px;
+    cursor: pointer;
+
+    &:hover {
+        color: cadetblue;
+        background-color: #e0f7fa;
+    }
+}
+.add-item {
+    &__input {
+        border: 1px solid cadetblue;
+        border-radius: 16px;
+        padding: 0 15px;
+        height: 100%;
+    }
+    &__button {
+        width: 35%;
+        height: 100%;
+    }
+    &__form {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        height: 40px;
+    }
+}

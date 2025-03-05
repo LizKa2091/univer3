@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AdminProductCard from './components/AdminProductCard';
 import UserProductCard from './components/UserProductCard';
+import './App.scss';
 
 const App = () => {
     const [messages, setMessages] = useState([]);
@@ -8,7 +9,7 @@ const App = () => {
 
     const ws = new WebSocket('ws://localhost:8004');
 
-    const isAdmin = false;
+    const isAdmin = true;
 
     useEffect(() => {
         ws.onmessage = (event) => {
@@ -33,7 +34,7 @@ const App = () => {
     };
 
     return (
-        <div className="App">
+        <>
             <h1>Каталог товаров</h1>
             <div className="product-list">
                 {isAdmin ? <AdminProductCard /> : <UserProductCard />}
@@ -47,14 +48,17 @@ const App = () => {
                         </div>
                     ))}
                 </div>
-                <input
-                    type="text"
-                    value={messageInput}
-                    onChange={(e) => setMessageInput(e.target.value)}
-                />
-                <button onClick={handleSendMessage}>Отправить</button>
+                <div className='chat__controllers'>
+                    <input
+                        type="text"
+                        value={messageInput}
+                        onChange={(e) => setMessageInput(e.target.value)}
+                        className='chat__input'
+                    />
+                    <button onClick={handleSendMessage} className='chat__button'>Отправить</button>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 export default App;
