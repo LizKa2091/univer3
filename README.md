@@ -1,13 +1,22 @@
 ### Сервер администратора
 Для запуска сервера администратора выполните следующие команды:
-bash
-cd back
-node adminServer.js
+`cd back`
+`node adminServer.js`
+
+### Сервер GraphQL
+Для запуска сервера GraphQL выполните следующие команды:
+`cd back`
+`node graphqlServer.js`
+
+### Сервер WebSocket
+Для запуска сервера WebSocket выполните следующие команды:
+`cd back`
+`node websocketServer.js`
+
 ### Сервер пользователя 
 Для запуска сервера пользователя выполните следующие команды:
-bash
-cd back
-node userServer.js
+`cd back`
+`node userServer.js`
 
 # Getting Started with Create React App
 

@@ -5,15 +5,42 @@ const AdminProductCard = () => {
     const [currAddItemInput, setCurrAddItemInput] = useState('');
     const [editItemId, setEditItemId] = useState(null);
     const [editItemInput, setEditItemInput] = useState('');
+    const [messages, setMessages] = useState([]);
+    const [messageInput, setMessageInput] = useState('');
+    const [ws, setWs] = useState(null);
 
     useEffect(() => {
         fetchProducts();
+        const websocket = new WebSocket('ws://localhost:8004');
+
+        websocket.onopen = () => {
+            console.log('Подключено к WebSocket серверу');
+        };
+
+        websocket.onmessage = (event) => {
+            setMessages(prevMessages => [...prevMessages, event.data]);
+        };
+
+        setWs(websocket);
+
+        return () => {
+            websocket.close();
+        };
     }, []);
 
     const fetchProducts = async () => {
-        const response = await fetch('http://localhost:8001/api/products');
-        const data = await response.json();
-        setProducts(data);
+        const response = await fetch('http://localhost:8003/graphql', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                query: '{ products { id name price description category } }'
+            }),
+        });
+
+        const { data } = await response.json();
+        setProducts(data.products);
     };
 
     const handleAddItem = async (e) => {
@@ -41,6 +68,7 @@ const AdminProductCard = () => {
 
     const handleEditItem = async (id) => {
         const updatedProduct = { ...products.find(product => product.id === id), name: editItemInput };
+
         await fetch(`http://localhost:8001/api/products/${id}`, {
             method: 'PUT',
             headers: {
@@ -48,9 +76,17 @@ const AdminProductCard = () => {
             },
             body: JSON.stringify(updatedProduct),
         });
+
         setEditItemId(null);
         setEditItemInput('');
         fetchProducts();
+    };
+
+    const handleSendMessage = () => {
+        if (ws) {
+            ws.send(messageInput);
+            setMessageInput('');
+        }
     };
 
     const handleInputChange = (e) => {
@@ -63,28 +99,30 @@ const AdminProductCard = () => {
     
     return (
         <>
-            {products.map(product => (
-                <div key={product.id} className='product-card'>
-                    <h2>{product.name}</h2>
-                    <p>Цена: {product.price} руб.</p>
-                    <p>{product.description}</p>
-                    <p>Категория: {product.category}</p>
-                    <button className="remove-item" onClick={() => handleRemoveItem(product.id)}>удалить товар</button>
-                    {editItemId === product.id ? (
-                        <>
-                            <input type="text" onChange={handleEditInputChange} value={editItemInput} />
-                            <button className="edit-item" onClick={() => handleEditItem(product.id)}>сохранить изменения</button>
-                        </>
-                    ) : (
-                        <button className="edit-item" onClick={() => { setEditItemId(product.id); setEditItemInput(product.name); }}>изменить товар</button>
-                    )}
-                </div>
-            ))}
-            <form onSubmit={handleAddItem} style={{marginTop: 20}}>
-                <label htmlFor="new-product">Добавить товар:</label>
-                <input type="text" onChange={handleInputChange} value={currAddItemInput} />
-                <button className="add-item" type="submit">добавить товар</button>
-            </form>
+            <div>
+                {products.map(product => (
+                    <div key={product.id} className='product-card'>
+                        <h2>{product.name}</h2>
+                        <p>Цена: {product.price} руб.</p>
+                        <p>{product.description}</p>
+                        <p>Категория: {product.category}</p>
+                        <button className="remove-item" onClick={() => handleRemoveItem(product.id)}>удалить товар</button>
+                        {editItemId === product.id ? (
+                            <>
+                                <input type="text" onChange={handleEditInputChange} value={editItemInput} />
+                                <button className="edit-item" onClick={() => handleEditItem(product.id)}>сохранить изменения</button>
+                            </>
+                        ) : (
+                            <button className="edit-item" onClick={() => { setEditItemId(product.id); setEditItemInput(product.name); }}>изменить товар</button>
+                        )}
+                    </div>
+                ))}
+                <form onSubmit={handleAddItem} style={{marginTop: 20}}>
+                    <label htmlFor="new-product">Добавить товар:</label>
+                    <input type="text" onChange={handleInputChange} value={currAddItemInput} />
+                    <button className="add-item" type="submit">добавить товар</button>
+                </form>
+            </div>
         </>
     );
 };

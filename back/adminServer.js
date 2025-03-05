@@ -9,12 +9,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const productsFilePath = path.join(__dirname, 'data', 'products.json');
 
-// Обработчик для корневого маршрута
 app.get('/', (req, res) => {
     res.send('Добро пожаловать на API магазина! Используйте /api/products для доступа к товарам.');
 });
 
-// Получение списка товаров
 app.get('/api/products', (req, res) => {
     fs.readFile(productsFilePath, 'utf8', (err, data) => {
         if (err) {
@@ -24,7 +22,6 @@ app.get('/api/products', (req, res) => {
     });
 });
 
-// Добавление товаров
 app.post('/api/products', (req, res) => {
     const newProducts = req.body;
     fs.readFile(productsFilePath, 'utf8', (err, data) => {
@@ -42,7 +39,6 @@ app.post('/api/products', (req, res) => {
     });
 });
 
-// Редактирование товара
 app.put('/api/products/:id', (req, res) => {
     const productId = parseInt(req.params.id);
     const updatedProduct = req.body;
@@ -61,7 +57,6 @@ app.put('/api/products/:id', (req, res) => {
     });
 });
 
-// Удаление товара
 app.delete('/api/products/:id', (req, res) => {
     const productId = parseInt(req.params.id);
     fs.readFile(productsFilePath, 'utf8', (err, data) => {
