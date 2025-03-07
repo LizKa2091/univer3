@@ -9,7 +9,7 @@ const App = () => {
 
     const ws = new WebSocket('ws://localhost:8004');
 
-    const isAdmin = true;
+    const isAdmin = false;
 
     useEffect(() => {
         ws.onmessage = (event) => {

@@ -2,21 +2,25 @@
 Для запуска сервера администратора выполните следующие команды:
 `cd back`
 `node adminServer.js`
+port 8001
 
 ### Сервер GraphQL
 Для запуска сервера GraphQL выполните следующие команды:
 `cd back`
 `node graphqlServer.js`
+port 8003
 
 ### Сервер WebSocket
 Для запуска сервера WebSocket выполните следующие команды:
 `cd back`
 `node websocketServer.js`
+port 8004
 
 ### Сервер пользователя 
 Для запуска сервера пользователя выполните следующие команды:
 `cd back`
 `node userServer.js`
+port 8002
 
 # Getting Started with Create React App
 

@@ -32,7 +32,7 @@ const UserProductCard = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                query: '{ products { id name price  } }'
+                query: '{ products { id name price category  } }'
             }),
         });
         
